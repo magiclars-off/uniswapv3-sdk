@@ -5,8 +5,8 @@ import (
 	"math/big"
 
 	"github.com/daoleno/uniswap-sdk-core/entities"
-	"github.com/daoleno/uniswapv3-sdk/constants"
-	"github.com/daoleno/uniswapv3-sdk/utils"
+	"github.com/magiclars/uniswapv3-sdk/constants"
+	"github.com/magiclars/uniswapv3-sdk/utils"
 )
 
 var (
@@ -150,7 +150,7 @@ func (p *Position) MintAmountsWithSlippage(slippageTolerance *entities.Percent) 
 	if err != nil {
 		return nil, nil, err
 	}
-	poolLower, err := NewPool(p.Pool.Token0, p.Pool.Token1, p.Pool.Fee, sqrtRatioX96Lower, big.NewInt(0) /* liquidity doesn't matter */, tickLower, nil)
+	poolLower, err := NewPool(p.Pool.Token0, p.Pool.Token1, p.Pool.Fee, sqrtRatioX96Lower, big.NewInt(0) /* liquidity doesn't matter */, tickLower, nil, nil, nil)
 	if err != nil {
 		return nil, nil, err
 	}
@@ -158,7 +158,7 @@ func (p *Position) MintAmountsWithSlippage(slippageTolerance *entities.Percent) 
 	if err != nil {
 		return nil, nil, err
 	}
-	poolUpper, err := NewPool(p.Pool.Token0, p.Pool.Token1, p.Pool.Fee, sqrtRatioX96Upper, big.NewInt(0) /* liquidity doesn't matter */, tickUpper, nil)
+	poolUpper, err := NewPool(p.Pool.Token0, p.Pool.Token1, p.Pool.Fee, sqrtRatioX96Upper, big.NewInt(0) /* liquidity doesn't matter */, tickUpper, nil, nil, nil)
 	if err != nil {
 		return nil, nil, err
 	}
@@ -211,7 +211,7 @@ func (p *Position) BurnAmountsWithSlippage(slippageTolerance *entities.Percent) 
 	if err != nil {
 		return nil, nil, err
 	}
-	poolLower, err := NewPool(p.Pool.Token0, p.Pool.Token1, p.Pool.Fee, sqrtRatioX96Lower, big.NewInt(0) /* liquidity doesn't matter */, tickLower, nil)
+	poolLower, err := NewPool(p.Pool.Token0, p.Pool.Token1, p.Pool.Fee, sqrtRatioX96Lower, big.NewInt(0) /* liquidity doesn't matter */, tickLower, nil, nil, nil)
 	if err != nil {
 		return nil, nil, err
 	}
@@ -219,7 +219,7 @@ func (p *Position) BurnAmountsWithSlippage(slippageTolerance *entities.Percent) 
 	if err != nil {
 		return nil, nil, err
 	}
-	poolUpper, err := NewPool(p.Pool.Token0, p.Pool.Token1, p.Pool.Fee, sqrtRatioX96Upper, big.NewInt(0) /* liquidity doesn't matter */, tickUpper, nil)
+	poolUpper, err := NewPool(p.Pool.Token0, p.Pool.Token1, p.Pool.Fee, sqrtRatioX96Upper, big.NewInt(0) /* liquidity doesn't matter */, tickUpper, nil, nil, nil)
 	if err != nil {
 		return nil, nil, err
 	}

@@ -5,9 +5,9 @@ import (
 	"testing"
 
 	"github.com/daoleno/uniswap-sdk-core/entities"
-	"github.com/daoleno/uniswapv3-sdk/constants"
-	"github.com/daoleno/uniswapv3-sdk/utils"
 	"github.com/ethereum/go-ethereum/common"
+	"github.com/magiclars/uniswapv3-sdk/constants"
+	"github.com/magiclars/uniswapv3-sdk/utils"
 	"github.com/stretchr/testify/assert"
 )
 
@@ -18,28 +18,28 @@ var (
 )
 
 func TestNewPool(t *testing.T) {
-	_, err := NewPool(USDC, entities.WETH9[3], constants.FeeMedium, utils.EncodeSqrtRatioX96(constants.One, constants.One), big.NewInt(0), 0, nil)
+	_, err := NewPool(USDC, entities.WETH9[3], constants.FeeMedium, utils.EncodeSqrtRatioX96(constants.One, constants.One), big.NewInt(0), 0, nil, nil, nil)
 	assert.ErrorIs(t, err, entities.ErrDifferentChain, "cannot be used for tokens on different chains")
 
-	_, err = NewPool(USDC, entities.WETH9[1], 1e6, utils.EncodeSqrtRatioX96(constants.One, constants.One), big.NewInt(0), 0, nil)
+	_, err = NewPool(USDC, entities.WETH9[1], 1e6, utils.EncodeSqrtRatioX96(constants.One, constants.One), big.NewInt(0), 0, nil, nil, nil)
 	assert.ErrorIs(t, err, ErrFeeTooHigh, "fee cannot be more than 1e6'")
 
-	_, err = NewPool(USDC, USDC, constants.FeeMedium, utils.EncodeSqrtRatioX96(constants.One, constants.One), big.NewInt(0), 0, nil)
+	_, err = NewPool(USDC, USDC, constants.FeeMedium, utils.EncodeSqrtRatioX96(constants.One, constants.One), big.NewInt(0), 0, nil, nil, nil)
 	assert.ErrorIs(t, err, entities.ErrSameAddress, "cannot be used for the same token")
 
-	_, err = NewPool(USDC, entities.WETH9[1], constants.FeeMedium, utils.EncodeSqrtRatioX96(constants.One, constants.One), big.NewInt(0), 1, nil)
+	_, err = NewPool(USDC, entities.WETH9[1], constants.FeeMedium, utils.EncodeSqrtRatioX96(constants.One, constants.One), big.NewInt(0), 1, nil, nil, nil)
 	assert.ErrorIs(t, err, ErrInvalidSqrtRatioX96, "price must be within tick price bounds")
 
-	_, err = NewPool(USDC, entities.WETH9[1], constants.FeeMedium, new(big.Int).Add(utils.EncodeSqrtRatioX96(constants.One, constants.One), big.NewInt(1)), big.NewInt(0), -1, nil)
+	_, err = NewPool(USDC, entities.WETH9[1], constants.FeeMedium, new(big.Int).Add(utils.EncodeSqrtRatioX96(constants.One, constants.One), big.NewInt(1)), big.NewInt(0), -1, nil, nil, nil)
 	assert.ErrorIs(t, err, ErrInvalidSqrtRatioX96, "price must be within tick price bounds")
 
-	_, err = NewPool(USDC, entities.WETH9[1], constants.FeeMedium, utils.EncodeSqrtRatioX96(constants.One, constants.One), big.NewInt(0), 0, nil)
+	_, err = NewPool(USDC, entities.WETH9[1], constants.FeeMedium, utils.EncodeSqrtRatioX96(constants.One, constants.One), big.NewInt(0), 0, nil, nil, nil)
 	assert.NoError(t, err, "works with valid arguments for empty pool medium fee")
 
-	_, err = NewPool(USDC, entities.WETH9[1], constants.FeeLow, utils.EncodeSqrtRatioX96(constants.One, constants.One), big.NewInt(0), 0, nil)
+	_, err = NewPool(USDC, entities.WETH9[1], constants.FeeLow, utils.EncodeSqrtRatioX96(constants.One, constants.One), big.NewInt(0), 0, nil, nil, nil)
 	assert.NoError(t, err, "works with valid arguments for empty pool low fee")
 
-	_, err = NewPool(USDC, entities.WETH9[1], constants.FeeHigh, utils.EncodeSqrtRatioX96(constants.One, constants.One), big.NewInt(0), 0, nil)
+	_, err = NewPool(USDC, entities.WETH9[1], constants.FeeHigh, utils.EncodeSqrtRatioX96(constants.One, constants.One), big.NewInt(0), 0, nil, nil, nil)
 	assert.NoError(t, err, "works with valid arguments for empty pool high fee")
 }
 
@@ -49,18 +49,18 @@ func TestGetAddress(t *testing.T) {
 }
 
 func TestToken0(t *testing.T) {
-	pool, _ := NewPool(USDC, DAI, constants.FeeLow, utils.EncodeSqrtRatioX96(constants.One, constants.One), big.NewInt(0), 0, nil)
+	pool, _ := NewPool(USDC, DAI, constants.FeeLow, utils.EncodeSqrtRatioX96(constants.One, constants.One), big.NewInt(0), 0, nil, nil, nil)
 	assert.Equal(t, pool.Token0, DAI, "always is the token that sorts before")
 
-	pool, _ = NewPool(DAI, USDC, constants.FeeLow, utils.EncodeSqrtRatioX96(constants.One, constants.One), big.NewInt(0), 0, nil)
+	pool, _ = NewPool(DAI, USDC, constants.FeeLow, utils.EncodeSqrtRatioX96(constants.One, constants.One), big.NewInt(0), 0, nil, nil, nil)
 	assert.Equal(t, pool.Token0, DAI, "always is the token that sorts before")
 }
 
 func TestToken1(t *testing.T) {
-	pool, _ := NewPool(USDC, DAI, constants.FeeLow, utils.EncodeSqrtRatioX96(constants.One, constants.One), big.NewInt(0), 0, nil)
+	pool, _ := NewPool(USDC, DAI, constants.FeeLow, utils.EncodeSqrtRatioX96(constants.One, constants.One), big.NewInt(0), 0, nil, nil, nil)
 	assert.Equal(t, pool.Token1, USDC, "always is the token that sorts after")
 
-	pool, _ = NewPool(DAI, USDC, constants.FeeLow, utils.EncodeSqrtRatioX96(constants.One, constants.One), big.NewInt(0), 0, nil)
+	pool, _ = NewPool(DAI, USDC, constants.FeeLow, utils.EncodeSqrtRatioX96(constants.One, constants.One), big.NewInt(0), 0, nil, nil, nil)
 	assert.Equal(t, pool.Token1, USDC, "always is the token that sorts after")
 }
 
@@ -68,10 +68,10 @@ func TestToken0Price(t *testing.T) {
 	a1 := new(big.Int).Mul(big.NewInt(101), big.NewInt(1e6))
 	a2 := new(big.Int).Mul(big.NewInt(100), big.NewInt(1e18))
 	r, _ := utils.GetTickAtSqrtRatio(utils.EncodeSqrtRatioX96(a1, a2))
-	pool0, _ := NewPool(USDC, DAI, constants.FeeLow, utils.EncodeSqrtRatioX96(a1, a2), big.NewInt(0), r, nil)
+	pool0, _ := NewPool(USDC, DAI, constants.FeeLow, utils.EncodeSqrtRatioX96(a1, a2), big.NewInt(0), r, nil, nil, nil)
 	assert.Equal(t, pool0.Token0Price().ToSignificant(5), "1.01", "returns price of token0 in terms of token1")
 
-	pool1, _ := NewPool(DAI, USDC, constants.FeeLow, utils.EncodeSqrtRatioX96(a1, a2), big.NewInt(0), r, nil)
+	pool1, _ := NewPool(DAI, USDC, constants.FeeLow, utils.EncodeSqrtRatioX96(a1, a2), big.NewInt(0), r, nil, nil, nil)
 	assert.Equal(t, pool1.Token0Price().ToSignificant(5), "1.01", "returns price of token0 in terms of token1")
 }
 
@@ -79,15 +79,15 @@ func TestToken1Price(t *testing.T) {
 	a1 := new(big.Int).Mul(big.NewInt(101), big.NewInt(1e6))
 	a2 := new(big.Int).Mul(big.NewInt(100), big.NewInt(1e18))
 	r, _ := utils.GetTickAtSqrtRatio(utils.EncodeSqrtRatioX96(a1, a2))
-	pool0, _ := NewPool(USDC, DAI, constants.FeeLow, utils.EncodeSqrtRatioX96(a1, a2), big.NewInt(0), r, nil)
+	pool0, _ := NewPool(USDC, DAI, constants.FeeLow, utils.EncodeSqrtRatioX96(a1, a2), big.NewInt(0), r, nil, nil, nil)
 	assert.Equal(t, pool0.Token1Price().ToSignificant(5), "0.9901", "returns price of token1 in terms of token0")
 
-	pool1, _ := NewPool(DAI, USDC, constants.FeeLow, utils.EncodeSqrtRatioX96(a1, a2), big.NewInt(0), r, nil)
+	pool1, _ := NewPool(DAI, USDC, constants.FeeLow, utils.EncodeSqrtRatioX96(a1, a2), big.NewInt(0), r, nil, nil, nil)
 	assert.Equal(t, pool1.Token1Price().ToSignificant(5), "0.9901", "returns price of token1 in terms of token0")
 }
 
 func TestPriceOf(t *testing.T) {
-	pool, _ := NewPool(USDC, DAI, constants.FeeLow, utils.EncodeSqrtRatioX96(constants.One, constants.One), big.NewInt(0), 0, nil)
+	pool, _ := NewPool(USDC, DAI, constants.FeeLow, utils.EncodeSqrtRatioX96(constants.One, constants.One), big.NewInt(0), 0, nil, nil, nil)
 	price0, _ := pool.PriceOf(DAI)
 	assert.Equal(t, price0, pool.Token0Price(), "returns price of token in terms of other token")
 	price1, _ := pool.PriceOf(USDC)
@@ -98,15 +98,15 @@ func TestPriceOf(t *testing.T) {
 }
 
 func TestChainID(t *testing.T) {
-	pool0, _ := NewPool(USDC, DAI, constants.FeeLow, utils.EncodeSqrtRatioX96(constants.One, constants.One), big.NewInt(0), 0, nil)
+	pool0, _ := NewPool(USDC, DAI, constants.FeeLow, utils.EncodeSqrtRatioX96(constants.One, constants.One), big.NewInt(0), 0, nil, nil, nil)
 	assert.Equal(t, pool0.ChainID(), uint(1), "returns the token0 chainId")
 
-	pool1, _ := NewPool(DAI, USDC, constants.FeeLow, utils.EncodeSqrtRatioX96(constants.One, constants.One), big.NewInt(0), 0, nil)
+	pool1, _ := NewPool(DAI, USDC, constants.FeeLow, utils.EncodeSqrtRatioX96(constants.One, constants.One), big.NewInt(0), 0, nil, nil, nil)
 	assert.Equal(t, pool1.ChainID(), uint(1), "returns the token0 chainId")
 }
 
 func TestInvolvesToken(t *testing.T) {
-	pool, _ := NewPool(USDC, DAI, constants.FeeLow, utils.EncodeSqrtRatioX96(constants.One, constants.One), big.NewInt(0), 0, nil)
+	pool, _ := NewPool(USDC, DAI, constants.FeeLow, utils.EncodeSqrtRatioX96(constants.One, constants.One), big.NewInt(0), 0, nil, nil, nil)
 	assert.True(t, pool.InvolvesToken(USDC), "involves USDC")
 	assert.True(t, pool.InvolvesToken(DAI), "involves DAI")
 	assert.False(t, pool.InvolvesToken(entities.WETH9[1]), "does not involve WETH9")
@@ -131,7 +131,7 @@ func newTestPool() *Pool {
 		panic(err)
 	}
 
-	pool, err := NewPool(USDC, DAI, constants.FeeLow, utils.EncodeSqrtRatioX96(constants.One, constants.One), OneEther, 0, p)
+	pool, err := NewPool(USDC, DAI, constants.FeeLow, utils.EncodeSqrtRatioX96(constants.One, constants.One), OneEther, 0, p, nil, nil)
 	if err != nil {
 		panic(err)
 	}

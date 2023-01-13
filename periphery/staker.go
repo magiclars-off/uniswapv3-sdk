@@ -5,10 +5,10 @@ import (
 	"math/big"
 
 	core "github.com/daoleno/uniswap-sdk-core/entities"
-	"github.com/daoleno/uniswapv3-sdk/entities"
-	"github.com/daoleno/uniswapv3-sdk/utils"
 	"github.com/ethereum/go-ethereum/accounts/abi"
 	"github.com/ethereum/go-ethereum/common"
+	"github.com/magiclars/uniswapv3-sdk/entities"
+	"github.com/magiclars/uniswapv3-sdk/utils"
 )
 
 const INCENTIVE_KEY_ABI = "tuple(address rewardToken, address pool, uint256 startTime, uint256 endTime, address refundee)"

@@ -5,9 +5,9 @@ import (
 	"testing"
 
 	"github.com/daoleno/uniswap-sdk-core/entities"
-	"github.com/daoleno/uniswapv3-sdk/constants"
-	"github.com/daoleno/uniswapv3-sdk/utils"
 	"github.com/ethereum/go-ethereum/common"
+	"github.com/magiclars/uniswapv3-sdk/constants"
+	"github.com/magiclars/uniswapv3-sdk/utils"
 	"github.com/stretchr/testify/assert"
 )
 
@@ -99,7 +99,7 @@ func v2StylePool(token0, token1 *entities.Token, reserve0, reserve1 *entities.Cu
 	if err != nil {
 		panic(err)
 	}
-	pool, err := NewPool(token0, token1, feeAmount, sqrtRatioX96, liquidity, s, p)
+	pool, err := NewPool(token0, token1, feeAmount, sqrtRatioX96, liquidity, s, p, nil, nil)
 	if err != nil {
 		panic(err)
 	}

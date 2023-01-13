@@ -4,14 +4,14 @@ import (
 	"errors"
 	"math/big"
 
-	"github.com/daoleno/uniswapv3-sdk/examples/contract"
+	"github.com/magiclars/uniswapv3-sdk/examples/contract"
 
 	coreEntities "github.com/daoleno/uniswap-sdk-core/entities"
-	"github.com/daoleno/uniswapv3-sdk/constants"
-	"github.com/daoleno/uniswapv3-sdk/entities"
-	sdkutils "github.com/daoleno/uniswapv3-sdk/utils"
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/ethclient"
+	"github.com/magiclars/uniswapv3-sdk/constants"
+	"github.com/magiclars/uniswapv3-sdk/entities"
+	sdkutils "github.com/magiclars/uniswapv3-sdk/utils"
 )
 
 func GetPoolAddress(client *ethclient.Client, token0, token1 common.Address, fee *big.Int) (common.Address, error) {
@@ -56,6 +56,16 @@ func ConstructV3Pool(client *ethclient.Client, token0, token1 *coreEntities.Toke
 		return nil, err
 	}
 
+	feeGrowthGlobal0X128, err := contractPool.FeeGrowthGlobal0X128(nil)
+	if err != nil {
+		return nil, err
+	}
+
+	feeGrowthGlobal1X128, err := contractPool.FeeGrowthGlobal1X128(nil)
+	if err != nil {
+		return nil, err
+	}
+
 	feeAmount := constants.FeeAmount(poolFee)
 	ticks := []entities.Tick{
 		{
@@ -79,5 +89,5 @@ func ConstructV3Pool(client *ethclient.Client, token0, token1 *coreEntities.Toke
 	}
 
 	return entities.NewPool(token0, token1, constants.FeeAmount(poolFee),
-		slot0.SqrtPriceX96, liquidity, int(slot0.Tick.Int64()), p)
+		slot0.SqrtPriceX96, liquidity, int(slot0.Tick.Int64()), p, feeGrowthGlobal0X128, feeGrowthGlobal1X128)
 }

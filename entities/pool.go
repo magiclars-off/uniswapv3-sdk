@@ -5,9 +5,9 @@ import (
 	"math/big"
 
 	"github.com/daoleno/uniswap-sdk-core/entities"
-	"github.com/daoleno/uniswapv3-sdk/constants"
-	"github.com/daoleno/uniswapv3-sdk/utils"
 	"github.com/ethereum/go-ethereum/common"
+	"github.com/magiclars/uniswapv3-sdk/constants"
+	"github.com/magiclars/uniswapv3-sdk/utils"
 )
 
 var (
@@ -30,13 +30,15 @@ type StepComputations struct {
 
 // Represents a V3 pool
 type Pool struct {
-	Token0           *entities.Token
-	Token1           *entities.Token
-	Fee              constants.FeeAmount
-	SqrtRatioX96     *big.Int
-	Liquidity        *big.Int
-	TickCurrent      int
-	TickDataProvider TickDataProvider
+	Token0               *entities.Token
+	Token1               *entities.Token
+	Fee                  constants.FeeAmount
+	SqrtRatioX96         *big.Int
+	Liquidity            *big.Int
+	TickCurrent          int
+	TickDataProvider     TickDataProvider
+	FeeGrowthGlobal0X128 *big.Int
+	FeeGrowthGlobal1X128 *big.Int
 
 	token0Price *entities.Price
 	token1Price *entities.Price
@@ -55,8 +57,10 @@ func GetAddress(tokenA, tokenB *entities.Token, fee constants.FeeAmount, initCod
  * @param liquidity The current value of in range liquidity
  * @param tickCurrent The current tick of the pool
  * @param ticks The current state of the pool ticks or a data provider that can return tick data
+ * @param feeGrowthGlobal0X128 The current value of fee growth global 0
+ * @param feeGrowthGlobal1X128 The current value of fee growth global 1
  */
-func NewPool(tokenA, tokenB *entities.Token, fee constants.FeeAmount, sqrtRatioX96 *big.Int, liquidity *big.Int, tickCurrent int, ticks TickDataProvider) (*Pool, error) {
+func NewPool(tokenA, tokenB *entities.Token, fee constants.FeeAmount, sqrtRatioX96 *big.Int, liquidity *big.Int, tickCurrent int, ticks TickDataProvider, feeGrowthGlobal0X128 *big.Int, feeGrowthGlobal1X128 *big.Int) (*Pool, error) {
 	if fee >= constants.FeeMax {
 		return nil, ErrFeeTooHigh
 	}
@@ -85,13 +89,15 @@ func NewPool(tokenA, tokenB *entities.Token, fee constants.FeeAmount, sqrtRatioX
 	}
 
 	return &Pool{
-		Token0:           token0,
-		Token1:           token1,
-		Fee:              fee,
-		SqrtRatioX96:     sqrtRatioX96,
-		Liquidity:        liquidity,
-		TickCurrent:      tickCurrent,
-		TickDataProvider: ticks, // TODO: new tick data provider
+		Token0:               token0,
+		Token1:               token1,
+		Fee:                  fee,
+		SqrtRatioX96:         sqrtRatioX96,
+		Liquidity:            liquidity,
+		TickCurrent:          tickCurrent,
+		TickDataProvider:     ticks, // TODO: new tick data provider
+		FeeGrowthGlobal0X128: feeGrowthGlobal0X128,
+		FeeGrowthGlobal1X128: feeGrowthGlobal1X128,
 	}, nil
 }
 
@@ -163,7 +169,7 @@ func (p *Pool) GetOutputAmount(inputAmount *entities.CurrencyAmount, sqrtPriceLi
 	} else {
 		outputToken = p.Token0
 	}
-	pool, err := NewPool(p.Token0, p.Token1, p.Fee, sqrtRatioX96, liquidity, tickCurrent, p.TickDataProvider)
+	pool, err := NewPool(p.Token0, p.Token1, p.Fee, sqrtRatioX96, liquidity, tickCurrent, p.TickDataProvider, p.FeeGrowthGlobal0X128, p.FeeGrowthGlobal1X128)
 	if err != nil {
 		return nil, nil, err
 	}
@@ -191,7 +197,7 @@ func (p *Pool) GetInputAmount(outputAmount *entities.CurrencyAmount, sqrtPriceLi
 	} else {
 		inputToken = p.Token1
 	}
-	pool, err := NewPool(p.Token0, p.Token1, p.Fee, sqrtRatioX96, liquidity, tickCurrent, p.TickDataProvider)
+	pool, err := NewPool(p.Token0, p.Token1, p.Fee, sqrtRatioX96, liquidity, tickCurrent, p.TickDataProvider, p.FeeGrowthGlobal0X128, p.FeeGrowthGlobal1X128)
 	if err != nil {
 		return nil, nil, err
 	}

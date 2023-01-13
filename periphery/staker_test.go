@@ -5,11 +5,11 @@ import (
 	"testing"
 
 	core "github.com/daoleno/uniswap-sdk-core/entities"
-	"github.com/daoleno/uniswapv3-sdk/constants"
-	"github.com/daoleno/uniswapv3-sdk/entities"
-	"github.com/daoleno/uniswapv3-sdk/utils"
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/common/hexutil"
+	"github.com/magiclars/uniswapv3-sdk/constants"
+	"github.com/magiclars/uniswapv3-sdk/entities"
+	"github.com/magiclars/uniswapv3-sdk/utils"
 	"github.com/stretchr/testify/assert"
 )
 
@@ -18,7 +18,7 @@ func TestCollectRewards(t *testing.T) {
 	token0 := core.NewToken(1, common.HexToAddress("0x0000000000000000000000000000000000000001"), 18, "t0", "token0")
 	token1 := core.NewToken(1, common.HexToAddress("0x0000000000000000000000000000000000000002"), 18, "t1", "token1")
 
-	pool_0_1, _ := entities.NewPool(token0, token1, constants.FeeMedium, utils.EncodeSqrtRatioX96(constants.One, constants.One), big.NewInt(0), 0, nil)
+	pool_0_1, _ := entities.NewPool(token0, token1, constants.FeeMedium, utils.EncodeSqrtRatioX96(constants.One, constants.One), big.NewInt(0), 0, nil, nil, nil)
 
 	incentiveKey := []*IncentiveKey{{
 		RewardToken: reward,
@@ -73,7 +73,7 @@ func TestWithdrawToken(t *testing.T) {
 	token0 := core.NewToken(1, common.HexToAddress("0x0000000000000000000000000000000000000001"), 18, "t0", "token0")
 	token1 := core.NewToken(1, common.HexToAddress("0x0000000000000000000000000000000000000002"), 18, "t1", "token1")
 
-	pool_0_1, _ := entities.NewPool(token0, token1, constants.FeeMedium, utils.EncodeSqrtRatioX96(constants.One, constants.One), big.NewInt(0), 0, nil)
+	pool_0_1, _ := entities.NewPool(token0, token1, constants.FeeMedium, utils.EncodeSqrtRatioX96(constants.One, constants.One), big.NewInt(0), 0, nil, nil, nil)
 
 	incentiveKey := []*IncentiveKey{{
 		RewardToken: reward,
@@ -133,7 +133,7 @@ func TestEncodeDeposit(t *testing.T) {
 	token0 := core.NewToken(1, common.HexToAddress("0x0000000000000000000000000000000000000001"), 18, "t0", "token0")
 	token1 := core.NewToken(1, common.HexToAddress("0x0000000000000000000000000000000000000002"), 18, "t1", "token1")
 
-	pool_0_1, _ := entities.NewPool(token0, token1, constants.FeeMedium, utils.EncodeSqrtRatioX96(constants.One, constants.One), big.NewInt(0), 0, nil)
+	pool_0_1, _ := entities.NewPool(token0, token1, constants.FeeMedium, utils.EncodeSqrtRatioX96(constants.One, constants.One), big.NewInt(0), 0, nil, nil, nil)
 	recipient := common.HexToAddress("0x0000000000000000000000000000000000000003")
 	sender := common.HexToAddress("0x0000000000000000000000000000000000000004")
 	tokenID := big.NewInt(1)

@@ -5,11 +5,11 @@ import (
 	"testing"
 
 	core "github.com/daoleno/uniswap-sdk-core/entities"
-	"github.com/daoleno/uniswapv3-sdk/constants"
-	"github.com/daoleno/uniswapv3-sdk/entities"
-	"github.com/daoleno/uniswapv3-sdk/utils"
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/common/hexutil"
+	"github.com/magiclars/uniswapv3-sdk/constants"
+	"github.com/magiclars/uniswapv3-sdk/entities"
+	"github.com/magiclars/uniswapv3-sdk/utils"
 	"github.com/stretchr/testify/assert"
 )
 
@@ -19,8 +19,8 @@ var (
 
 	feeT = constants.FeeMedium
 
-	pool01T, _    = entities.NewPool(token0T, token1T, feeT, utils.EncodeSqrtRatioX96(big.NewInt(1), big.NewInt(1)), big.NewInt(0), 0, nil)
-	pool1wethT, _ = entities.NewPool(token1T, core.WETH9[1], feeT, utils.EncodeSqrtRatioX96(big.NewInt(1), big.NewInt(1)), big.NewInt(0), 0, nil)
+	pool01T, _    = entities.NewPool(token0T, token1T, feeT, utils.EncodeSqrtRatioX96(big.NewInt(1), big.NewInt(1)), big.NewInt(0), 0, nil, nil, nil)
+	pool1wethT, _ = entities.NewPool(token1T, core.WETH9[1], feeT, utils.EncodeSqrtRatioX96(big.NewInt(1), big.NewInt(1)), big.NewInt(0), 0, nil, nil, nil)
 
 	recipientT         = common.HexToAddress("0x0000000000000000000000000000000000000003")
 	senderT            = common.HexToAddress("0x0000000000000000000000000000000000000004")

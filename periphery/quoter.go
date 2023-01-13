@@ -8,9 +8,9 @@ import (
 	"reflect"
 
 	core "github.com/daoleno/uniswap-sdk-core/entities"
-	"github.com/daoleno/uniswapv3-sdk/entities"
-	"github.com/daoleno/uniswapv3-sdk/utils"
 	"github.com/ethereum/go-ethereum/common"
+	"github.com/magiclars/uniswapv3-sdk/entities"
+	"github.com/magiclars/uniswapv3-sdk/utils"
 )
 
 //go:embed contracts/lens/Quoter.sol/Quoter.json
