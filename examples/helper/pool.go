@@ -71,7 +71,7 @@ func ConstructV3Pool(client *ethclient.Client, token0, token1 *coreEntities.Toke
 		{
 			Index: entities.NearestUsableTick(sdkutils.MinTick,
 				constants.TickSpacings[feeAmount]),
-			LiquidityNet:   pooltick.LiquidityNet,
+			LiquidityNet:   new(big.Int).SetInt64(-pooltick.LiquidityNet.Int64()),
 			LiquidityGross: pooltick.LiquidityGross,
 		},
 		{
