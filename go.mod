@@ -1,4 +1,4 @@
-module github.com/magiclars/uniswapv3-sdk
+module github.com/magiclars-off/uniswapv3-sdk
 
 go 1.18
 

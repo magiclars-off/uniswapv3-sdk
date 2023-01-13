@@ -4,14 +4,14 @@ import (
 	"errors"
 	"math/big"
 
-	"github.com/magiclars/uniswapv3-sdk/examples/contract"
+	"github.com/magiclars-off/uniswapv3-sdk/examples/contract"
 
 	coreEntities "github.com/daoleno/uniswap-sdk-core/entities"
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/ethclient"
-	"github.com/magiclars/uniswapv3-sdk/constants"
-	"github.com/magiclars/uniswapv3-sdk/entities"
-	sdkutils "github.com/magiclars/uniswapv3-sdk/utils"
+	"github.com/magiclars-off/uniswapv3-sdk/constants"
+	"github.com/magiclars-off/uniswapv3-sdk/entities"
+	sdkutils "github.com/magiclars-off/uniswapv3-sdk/utils"
 )
 
 func GetPoolAddress(client *ethclient.Client, token0, token1 common.Address, fee *big.Int) (common.Address, error) {

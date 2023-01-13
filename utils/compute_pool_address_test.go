@@ -5,7 +5,7 @@ import (
 
 	"github.com/daoleno/uniswap-sdk-core/entities"
 	"github.com/ethereum/go-ethereum/common"
-	"github.com/magiclars/uniswapv3-sdk/constants"
+	"github.com/magiclars-off/uniswapv3-sdk/constants"
 	"github.com/stretchr/testify/assert"
 )
 

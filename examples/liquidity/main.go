@@ -11,11 +11,11 @@ import (
 	"github.com/ethereum/go-ethereum/accounts/abi"
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/ethclient"
-	"github.com/magiclars/uniswapv3-sdk/constants"
-	"github.com/magiclars/uniswapv3-sdk/entities"
-	"github.com/magiclars/uniswapv3-sdk/examples/contract"
-	"github.com/magiclars/uniswapv3-sdk/examples/helper"
-	"github.com/magiclars/uniswapv3-sdk/periphery"
+	"github.com/magiclars-off/uniswapv3-sdk/constants"
+	"github.com/magiclars-off/uniswapv3-sdk/entities"
+	"github.com/magiclars-off/uniswapv3-sdk/examples/contract"
+	"github.com/magiclars-off/uniswapv3-sdk/examples/helper"
+	"github.com/magiclars-off/uniswapv3-sdk/periphery"
 )
 
 // mint a new liquidity

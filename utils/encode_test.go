@@ -4,7 +4,7 @@ import (
 	"math/big"
 	"testing"
 
-	"github.com/magiclars/uniswapv3-sdk/constants"
+	"github.com/magiclars-off/uniswapv3-sdk/constants"
 	"github.com/stretchr/testify/assert"
 )
 

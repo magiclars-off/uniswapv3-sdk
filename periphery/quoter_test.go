@@ -6,8 +6,8 @@ import (
 
 	core "github.com/daoleno/uniswap-sdk-core/entities"
 	"github.com/ethereum/go-ethereum/common/hexutil"
-	"github.com/magiclars/uniswapv3-sdk/entities"
-	"github.com/magiclars/uniswapv3-sdk/utils"
+	"github.com/magiclars-off/uniswapv3-sdk/entities"
+	"github.com/magiclars-off/uniswapv3-sdk/utils"
 	"github.com/stretchr/testify/assert"
 )
 

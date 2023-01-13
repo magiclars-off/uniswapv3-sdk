@@ -3,7 +3,7 @@ package entities
 import (
 	"math"
 
-	"github.com/magiclars/uniswapv3-sdk/utils"
+	"github.com/magiclars-off/uniswapv3-sdk/utils"
 )
 
 /**

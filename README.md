@@ -5,7 +5,7 @@
 ## Installation
 
 ```sh
-go get github.com/magiclars/uniswapv3-sdk
+go get github.com/magiclars-off/uniswapv3-sdk
 ```
 
 ## Usage
@@ -19,10 +19,10 @@ import (
 	"fmt"
 	"math/big"
 
-	core "github.com/magiclars/uniswap-sdk-core/entities"
-	"github.com/magiclars/uniswapv3-sdk/constants"
-	"github.com/magiclars/uniswapv3-sdk/entities"
-	"github.com/magiclars/uniswapv3-sdk/utils"
+	core "github.com/magiclars-off/uniswap-sdk-core/entities"
+	"github.com/magiclars-off/uniswapv3-sdk/constants"
+	"github.com/magiclars-off/uniswapv3-sdk/entities"
+	"github.com/magiclars-off/uniswapv3-sdk/utils"
 	"github.com/ethereum/go-ethereum/common"
 )
 

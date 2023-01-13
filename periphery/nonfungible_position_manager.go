@@ -9,9 +9,9 @@ import (
 	core "github.com/daoleno/uniswap-sdk-core/entities"
 	"github.com/ethereum/go-ethereum/accounts/abi"
 	"github.com/ethereum/go-ethereum/common"
-	"github.com/magiclars/uniswapv3-sdk/constants"
-	"github.com/magiclars/uniswapv3-sdk/entities"
-	"github.com/magiclars/uniswapv3-sdk/utils"
+	"github.com/magiclars-off/uniswapv3-sdk/constants"
+	"github.com/magiclars-off/uniswapv3-sdk/entities"
+	"github.com/magiclars-off/uniswapv3-sdk/utils"
 )
 
 //go:embed contracts/interfaces/INonfungiblePositionManager.sol/INonfungiblePositionManager.json
